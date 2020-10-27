@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ML API</title>
+</head>
+    <div class = "login">
+        <h1>Is this talking about a disaster?</h1>
+        
+        <form action="{{url_for('predict')}}" method="post">
+            <input type="text" name="news_article" placeholder="Paste news article here!" required="required" />
+            <button type="submit" class="btn btn-primary btn-block btn-large">Submit!</button>
+        </form>
+
+        <br />
+        <br />
+        {{ prediction_text }}
+    </div>
+
+</html>
