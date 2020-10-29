@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: gunicorn --chdr /app app:app
