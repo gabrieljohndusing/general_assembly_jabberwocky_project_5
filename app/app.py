@@ -118,9 +118,12 @@ def search():
 	term=request.form.get('keyword')
 	if len(term) > 0:
 		result=search_keyword(term)
-		result['is_disaster']=predict_disaster(result['body'])
-		result=body_topic(result)
-		display=result[['title', 'url', 'datePublished', 'is_disaster', 'predicted_topic']]
-		return render_template("index.html", search_results=f"{display.to_html(render_links=True)}")
+        if result.shape[0] != 0:
+            result['is_disaster']=predict_disaster(result['body'])
+            result=body_topic(result)
+            display=result[['title', 'url', 'datePublished', 'is_disaster', 'predicted_topic']]
+            return render_template("index.html", search_results=f"{display.to_html(render_links=True)}")
+        else:
+            render_template("index.html", search_results="<p>No results found. Please check spelling or enter a different search term.</p>")
 	else:
 		return render_template("index.html", search_results="<p>Please enter a search term.</p>")
