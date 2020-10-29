@@ -1,2 +1,1 @@
-web: gunicorn -b :$PORT
-app: api_search
+web: gunicorn app: api_search
