@@ -1,2 +1,2 @@
 web: gunicorn 
-app: cd deployment && api_search
+app: api_search
