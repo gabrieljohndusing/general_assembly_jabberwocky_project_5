@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>API Search</title>
+</head>
+
+<body>
+<form action="{{ url_for('search')}}" method="post">
+  <label for="fname">Enter search term:</label>
+  <input type="text" name="keyword" placeholder="Fires">
+  <button type="submit" value="Submit">yeet</button>
+</form> 
+
+<p>{{first_result}}</p>
+
+</body>
+</html>
