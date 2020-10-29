@@ -33,11 +33,11 @@ snow=SnowballStemmer("english")
 def search_keyword(text):
     url = "https://rapidapi.p.rapidapi.com/api/search/NewsSearchAPI"
     querystring = {"pageSize":"50",
-                   "q": text,
-                   "autoCorrect":"true",
-                   "pageNumber":"1",
-                   "toPublishedDate":"null",
-                   "fromPublishedDate":"null"}
+                    "q": text,
+                    "autoCorrect":"true",
+                    "pageNumber":"1",
+                    "toPublishedDate":"null",
+                    "fromPublishedDate":"null"}
     headers = {
     'x-rapidapi-host': "contextualwebsearch-websearch-v1.p.rapidapi.com",
     'x-rapidapi-key': "55c35a554dmshab5af4556f598ffp1d3d45jsn8b763429c95f"
@@ -114,10 +114,23 @@ def index():
     return render_template('index.html')
 
 @app.route('/search', methods=["POST"])
+# def search():
+# 	term = request.form.get('keyword')
+# 	if len(term) > 0:
+#         result=search_keyword(term)
+#         if result.shape[0] != 0:
+#             result['is_disaster']=predict_disaster(result['body'])
+#             result=body_topic(result)
+#             display=result[['title', 'url', 'datePublished', 'is_disaster', 'predicted_topic']]
+#             return render_template("index.html", search_results=f"{display.to_html(render_links=True)}")
+#         else:
+#             return render_template("index.html", search_results="<p>No results found. Please check spelling or enter a different search term.</p>")
+#     else:
+#         return render_template("index.html", search_results="<p>Please enter a search term.</p>")
 def search():
-	term=request.form.get('keyword')
-	if len(term) > 0:
-        result=search_keyword(term)
+    term = request.form.get('keyword')
+    if len(term) > 0 :
+        result = search_keyword(term)
         if result.shape[0] != 0:
             result['is_disaster']=predict_disaster(result['body'])
             result=body_topic(result)
