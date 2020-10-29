@@ -8,11 +8,11 @@
 <body>
 <form action="{{ url_for('search')}}" method="post">
   <label for="fname">Enter search term:</label>
-  <input type="text" name="keyword" placeholder="Fires">
+  <input type="text" name="keyword">
   <button type="submit" value="Submit">yeet</button>
 </form> 
 
-<p>{{first_result}}</p>
+{{search_results | safe}}
 
 </body>
 </html>
