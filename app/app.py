@@ -16,9 +16,9 @@ from nltk.stem.snowball import SnowballStemmer
 
 app = Flask(__name__)
 #models and associated saved files
-rf = pickle.load(open('./models/random_forest.pkl','rb'))
-sc = pickle.load(open('./models/standard_scaler.pkl','rb'))
-tf = pickle.load(open('./models/tfidf_vectorizer.pkl','rb'))
+rf = pickle.load(open('./models/random_forest_2.pkl','rb'))
+sc = pickle.load(open('./models/standard_scaler_2.pkl','rb'))
+tf = pickle.load(open('./models/tfidf_vectorizer_2.pkl','rb'))
 topic_model=LdaModel.load('./models/topic_model/trained_model.tmp')
 dictionary=Dictionary.load('./models/topic_model/dictionary.tmp')
 
@@ -114,19 +114,6 @@ def index():
     return render_template('index.html')
 
 @app.route('/search', methods=["POST"])
-# def search():
-# 	term = request.form.get('keyword')
-# 	if len(term) > 0:
-#         result=search_keyword(term)
-#         if result.shape[0] != 0:
-#             result['is_disaster']=predict_disaster(result['body'])
-#             result=body_topic(result)
-#             display=result[['title', 'url', 'datePublished', 'is_disaster', 'predicted_topic']]
-#             return render_template("index.html", search_results=f"{display.to_html(render_links=True)}")
-#         else:
-#             return render_template("index.html", search_results="<p>No results found. Please check spelling or enter a different search term.</p>")
-#     else:
-#         return render_template("index.html", search_results="<p>Please enter a search term.</p>")
 def search():
     try:
         term = request.form.get('keyword')
