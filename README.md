@@ -28,7 +28,7 @@ We created a news article aggregator that serves up news articles related to dis
 This solution was deployed as a Heroku application which can be found here:
 <https://ga-tor-9-project-5.herokuapp.com/>
 
-- Our team are:
+- Our team is:
   - Patrick Dornian
   - Muhammad Zair Shafquat
   - Gabriel John Dusing
@@ -40,20 +40,25 @@ This solution was deployed as a Heroku application which can be found here:
   - Scikit-Learn
     - Tfidf-Vectorizer
     - RandomForestClassifier
-  - Gensim
-  - Flask
-  - Heroku
+  -NLP Tools
+    - Gensim
+    - NLTK
+  -Web Deployment
+    - Flask
+    - Heroku
 
 ## Project Description
 
 ### Data Collection
 
-We collected news articles using Rapid API's News Search API
+News articles were collected using Rapid API's News Search API. Additional articles were sourced from [Aylien](https://aylien.com/resources/datasets/natural-disasters-dataset-download), a registration gated news data source.
 
 ### Preprocessing and Modelling
 
 There are two stages to our article selection process:
-classification of articles by disaster, and topic modelling.
+
+1. Search results are filtered based on whethery they are classified to be a news article about a disaster or not.
+2. The filtered articles are then marked with a topic assigned by a trained LDA (Latent Dirichlet Allocation) model.
 
 #### Disaster Classification
 
@@ -72,7 +77,18 @@ We were able to obtain a train-test accuracy of 100\% - 99\%.
 
 #### Topic Modelling
 
-GENSIM!
+LDA models are used in NLP to assign topics to unlabelled text data from a corpus. The model was trained on the body text of \~ 32,000 news articles about natural disasters in 2019 sourced from Aylien. 
+
+The dictionary used inclued about 26,000 stemmed words sourced from the total of the articles. It comprised words that appeared in at least 5 articles, but less than 50%.
+
+The most intuitive results were achieved when the model was limited to six topics. The six disaster topics loosely correspond to:
+
+- Drought/Global warming
+- Fires
+- Earthquakes and seismic events
+- Urban/Civic disasters
+- Hurricanes/Storms
+- Flooding
 
 ## Data Dictionary and Folder Structure
 
