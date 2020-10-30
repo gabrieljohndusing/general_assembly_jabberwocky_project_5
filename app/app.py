@@ -131,7 +131,7 @@ def search():
     term = request.form.get('keyword')
     if len(term) > 0 :
         result = search_keyword(term)
-        if result.shape[0] > 1:
+        if result is not None:
             result['is_disaster']=predict_disaster(result['body'])
             result=body_topic(result)
             display=result[['title', 'url', 'datePublished', 'is_disaster', 'predicted_topic']]
