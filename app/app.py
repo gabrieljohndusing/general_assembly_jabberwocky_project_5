@@ -90,7 +90,7 @@ def body_topic(dataframe):
     return dataframe
 
    
-# Topic Index Reference (These are not exact rules, and are topics classified by the unsupervised trained LDA model)
+# Topic Index Reference (These are not exact rules. Topics classified by the unsupervised trained LDA model)
 
 # 0: Global Warming/Drought/Climate disasters.
 
