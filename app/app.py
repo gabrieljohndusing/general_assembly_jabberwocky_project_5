@@ -17,7 +17,6 @@ from nltk.stem.snowball import SnowballStemmer
 app = Flask(__name__)
 #models and associated saved files
 rf = pickle.load(open('./models/random_forest_2.pkl','rb'))
-sc = pickle.load(open('./models/standard_scaler_2.pkl','rb'))
 tf = pickle.load(open('./models/tfidf_vectorizer_2.pkl','rb'))
 topic_model=LdaModel.load('./models/topic_model/trained_model.tmp')
 dictionary=Dictionary.load('./models/topic_model/dictionary.tmp')
@@ -56,7 +55,6 @@ def search_keyword(text):
 #0 otherwise
 def predict_disaster(text_series):
 	X = tf.transform(text_series)
-	X = pd.DataFrame(X.toarray(), columns = tf.get_feature_names())
 	is_disaster = rf.predict(X)
 	return is_disaster
 
@@ -86,7 +84,7 @@ def body_topic(dataframe):
     text_body=[[snow.stem(token) for token in word_list] for word_list in text_body]
     dataframe['tokens']=[list(gen) for gen in text_body]
     dataframe['corpus']=[dictionary.doc2bow(doc) for doc in dataframe['tokens']]
-    dataframe['predicted_topic']= [probs_to_topic(topic_probs)for topic_probs in topic_model.get_document_topics(dataframe['corpus'])]
+    dataframe['predicted_topic']= [probs_to_topic(topic_probs) for topic_probs in topic_model.get_document_topics(dataframe['corpus'])]
     return dataframe
 
    
@@ -119,7 +117,7 @@ def search():
         term = request.form.get('keyword')
         if len(term) > 0 :
             result = search_keyword(term)
-            result['is_disaster']=predict_disaster(result['body'])
+            result['is_disaster'] = predict_disaster(result['title'])
             result=body_topic(result)
             display=result[['title', 'url', 'datePublished', 'is_disaster', 'predicted_topic']]
             return render_template("index.html", search_results=f"{display.to_html(render_links=True)}")
