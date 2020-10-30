@@ -14,7 +14,7 @@ from gensim.corpora import Dictionary
 from gensim.models.ldamodel import LdaModel
 from nltk.stem.snowball import SnowballStemmer
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 #models and associated saved files
 rf = pickle.load(open('./models/random_forest_2.pkl','rb'))
 tf = pickle.load(open('./models/tfidf_vectorizer_2.pkl','rb'))
@@ -24,6 +24,17 @@ dictionary=Dictionary.load('./models/topic_model/dictionary.tmp')
 #load stemmer for later use
 snow=SnowballStemmer("english")
 
+#code needed for displaying the icons.
+#displaying icons should probably be a javascript thing. unfortunately for you, I barely know javascript, so I'm
+#going to use flask to inject the appropriate icons instead. this is the image source code as strings.
+sun='<img src="/static/icons/sun.svg" style="height:25px">'
+fire='<img src="/static/icons/fire.svg" style="height:25px">'
+earthquake='<img src="/static/icons/earthquake.svg" style="height:25px">'
+civic='<img src="/static/icons/civic.svg" style="height:25px">'
+tornado='<img src="/static/icons/tornado.svg" style="height:25px">'
+water='<img src="/static/icons/water.svg" style="height:25px">'
+
+icon_dict={0: sun, 1: fire, 2: earthquake, 3: civic, 4: tornado, 5:water}
 #=========================FUNCTIONS================================================
 
 #given an inputed keyword, calls the API and returns a dataframe of first 50 results
@@ -43,12 +54,27 @@ def search_keyword(text):
     }
     response = requests.request("GET", url, headers=headers, params=querystring)
     page_1_data=response.json()
+    total_pages= (page_1_data['totalCount'] // 50) + 1
     req_df=pd.DataFrame(page_1_data['value'])
+    #return all results or first 250, whichever is smaller.
+    if total_pages > 1:
+    	 for i in range(2, min(total_pages, 6)):
+            querystring['pageNumber']=i
+            page_req=requests.get(url, headers=headers, params=querystring)
+            page_data=page_req.json()
+            while page_req.status_code != 200:
+                time.sleep(1)
+                page_req= requests.get(url, headers=headers, params=querystring)
+            page_df=pd.DataFrame(page_data['value'])
+            req_df=pd.concat([req_df, page_df])
+
+
     mask=req_df['provider'] == {'name':'wikipedia'}
     #get out of here, wikipedia
     req_df.drop(req_df[mask].index, inplace=True)
     req_df.drop(columns=["id", "isSafe", "image", "keywords"], inplace=True)
     req_df['datePublished']= pd.to_datetime(req_df['datePublished'])
+    req_df.reset_index(drop=True, inplace=True)
     return req_df
 
 #given a series of text strings, returns a binary vector with 1 if the story is classified as a disaster,
@@ -105,6 +131,7 @@ def body_topic(dataframe):
 
 
 
+
 #==================================FLASK PAGE=============================================
 
 @app.route('/')
@@ -120,7 +147,14 @@ def search():
             result['is_disaster'] = predict_disaster(result['title'])
             result=body_topic(result)
             display=result[['title', 'url', 'datePublished', 'is_disaster', 'predicted_topic']]
-            return render_template("index.html", search_results=f"{display.to_html(render_links=True)}")
+            disasters=display[display['is_disaster']==1]
+            topics=disasters['predicted_topic'].unique()
+            icon_code="<p style='margin-right:10px'>Possible Disasters:</p>"
+            for t in topics:
+            	icon_code += icon_dict[t] + "\n"
+
+            return render_template("index.html", display_results=f"<h3>Processed Results</h3> \n {disasters[['title','url','datePublished']].to_html(render_links=True)}",
+            	icons=icon_code)
         else:
             return render_template("index.html", search_results="<p>Please enter a search term.</p>")
     except:

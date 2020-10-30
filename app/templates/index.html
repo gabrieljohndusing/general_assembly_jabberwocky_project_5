@@ -2,17 +2,40 @@
 <html>
 
 <head>
-	<title>API Search</title>
+	<title>Disaster Search Engine</title>
+
+<style>
+.flex-container {
+	display: flex;
+	align-items: center;
+}
+
+
+form {
+	margin:10px;
+}
+
+</style>
+
 </head>
 
 <body>
+
+<h1> Looking For Disaster?</h1>	
 <form action="{{ url_for('search')}}" method="post">
   <label for="fname">Enter search term:</label>
   <input type="text" name="keyword">
-  <button type="submit" value="Submit">yeet</button>
+  <button type="submit" value="Submit">Search</button>
 </form> 
 
+<div class="flex-container">
+{{icons | safe}}
+
+</div>
+
 {{search_results | safe}}
+
+{{display_results | safe}}
 
 </body>
 </html>
