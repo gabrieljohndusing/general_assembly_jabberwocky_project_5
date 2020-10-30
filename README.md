@@ -6,6 +6,8 @@
   - [Problem Statement](#problem-statement)
   - [Solution](#solution)
 - [Project Description](#project-description)
+  - [Data Collection](#data-collection)
+  - [Preprocessing and Modelling](#preprocessing-and-modelling)
 - [Structure and Data Dictionary](#structure-and-data-dictionary)
 - [References](#references)
 
@@ -26,15 +28,18 @@ We created a news article aggregator that serves up news articles related to dis
 This solution was deployed as a Heroku application which can be found here:
 <https://ga-tor-9-project-5.herokuapp.com/>
 
-- Our team consisted of:
+- Our team are:
   - Patrick Dornian
   - Muhammad Zair Shafquat
   - Gabriel John Dusing
 
-- Tech stack
+- We worked with the following tech stack:
   - Basic python data science tools
-    - Pandas, Numpy
+    - Pandas
+    - Numpy
   - Scikit-Learn
+    - Tfidf-Vectorizer
+    - RandomForestClassifier
   - Gensim
   - Flask
   - Heroku
@@ -45,9 +50,29 @@ This solution was deployed as a Heroku application which can be found here:
 
 We collected news articles using Rapid API's News Search API
 
-## Model chosen
+### Preprocessing and Modelling
 
-There are two stages to our article selection process.
+There are two stages to our article selection process:
+classification of articles by disaster, and topic modelling.
+
+#### Disaster Classification
+
+In the first stage, we preprocessed our text using TF-IDF to vectorize our text, and used a random forest model (with default settings) to determine if the article(s) pulled by the API is actually talking about a disaster.
+The TF-IDF parameters are as follows:
+
+| Parameter | Value |
+| :-------: | :----: |
+| `stop_words` | `'english'` |
+| `max_features` | `5000` |
+| `ngram_range` | `(1,3)` |
+
+This model was trained using the articles pulled from the news search api,
+with our training dataset consisting of 52\% non-disaster articles and 48\% articles.
+We were able to obtain a train-test accuracy of 100\% - 99\%.
+
+#### Topic Modelling
+
+GENSIM!
 
 ## Data Dictionary and Folder Structure
 
@@ -60,13 +85,8 @@ Each successful search input returns a data frame with the following dictionary:
 | `title`| text | Title and short description of article |
 | `url` | text | Article's URL |
 | `datePublished` | datetime | Article's publication date |
-| `is_disaster` | integer | Is the article talking about a disaster? `1` if yes, `0` otherwise |
-|`predicted_topic` | integer | `0` : Climate Disaster |
-|  |   | `1` : Fires |
-|  |   | `2` : Earthquakes/Volcanos/Seismic Events |
-|  |   | `3` : Urban/Other Disasters (e.g. Plane crashes, etc.) |
-|  |   | `4` : Storms/Tornadoes/Hurricanes |
-|  |   | `5` : Floods/Rains |
+
+The returned result also includes graphics that display what possible disaster types are being included in the search results.
 
 ### Folder Structure
 
@@ -74,8 +94,6 @@ Our folders have been organized according to the structure below:
 
 - `general_assembly_jabberwocky_project_5`
   - `__pycache__`
-
-    - `api_search.cpython-38`
 
     - `app.cpython-38`
 
@@ -98,6 +116,22 @@ Our folders have been organized according to the structure below:
       - `random_forest.pkl`
 
       - `tfidf_vectorizer.pkl`
+
+    - `static`
+
+      - `icons`
+        
+        - `civic`
+
+        - `earthquake`
+
+        - `fire`
+
+        - `sun`
+
+        - `tornado`
+
+        - `water`
 
     - `templates`
 
