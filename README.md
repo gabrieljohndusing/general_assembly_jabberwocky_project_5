@@ -9,6 +9,8 @@
   - [Data Collection](#data-collection)
   - [Preprocessing and Modelling](#preprocessing-and-modelling)
 - [Structure and Data Dictionary](#structure-and-data-dictionary)
+- [Conclusions](#conclusions)
+  - [Future Work](#future-work)
 - [References](#references)
 
 ## Introduction
@@ -168,6 +170,10 @@ Our folders have been organized according to the structure below:
   - `Procfile`
 
   - `README.md`
+
+## Conclusions
+
+### Future Work
 
 ## References
 
