@@ -87,7 +87,7 @@ The most intuitive results were achieved when the model was limited to six topic
 - Drought/Global warming
 - Fires
 - Earthquakes and seismic events
-- Urban/Civic disasters
+- Urban/aviation disasters
 - Hurricanes/Storms
 - Flooding
 
@@ -186,13 +186,15 @@ Our folders have been organized according to the structure below:
 
   - `README.md`
 
-## Conclusions
+## Conclusions and Opportunities for Improvement
 
-Currently, user input is required for the application to return results.
-Ifuture improvements may include adding a feature that allows the application to automatically update display updates without needing the user to input search terms each time.
+The app is mostly a proof of concept. It provides plausible results, but examining the underlying disaster filtering and the topic classification reveals frequent errors.
 
-This initial application specifically pulls news articles.
-A future improvement would allow the application to extract information from other sources, e.g. Twitter, Instagram, YouTube, etc.
+Model performance of classifying if an article is about a disaster or not could be significantly improved given access to more labelled data and/or a professional grade news API. Topic modelling and disaster classification were trained on different datasets, resulting in inconsistent labelling and results. Due to the catastrophic impact of ignoring a disaster, the model should probably be optimized for specificity (minimizing false negatives). 
+
+To better serve as a disaster news feed, the app could be further developed to make more explicit use of geographical data and filtering, allowing for better browsing of regionally important issues.
+
+Currently, user input is required for the application to return results. Future improvements may include adding a feature that allows the application to automatically update display updates without needing the user to input search terms each time.This initial application specifically pulls news articles. A future improvement would allow the application to extract information from other sources, e.g. Twitter, Instagram, YouTube, etc.
 
 ## References
 
