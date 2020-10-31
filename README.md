@@ -29,7 +29,7 @@ We created a news article aggregator that serves up news articles related to dis
 This solution was deployed as a Heroku application which can be found here:
 <https://ga-tor-9-project-5.herokuapp.com/>
 
-- Our team is:
+- Our team members are:
   - Patrick Dornian
   - Muhammad Zair Shafquat
   - Gabriel John Dusing
@@ -73,8 +73,8 @@ The TF-IDF parameters are as follows:
 | `ngram_range` | `(1,3)` |
 
 This model was trained using the articles pulled from the news search api,
-with our training dataset consisting of 52\% non-disaster articles and 48\% articles.
-We were able to obtain a train-test accuracy of 100\% - 99\%.
+with our training dataset consisting of 52\% general articles and 48\% disaster-related articles.
+We obtained a train-test accuracy of 100\% - 99\%.
 
 #### Topic Modelling
 
@@ -194,7 +194,8 @@ Model performance of classifying if an article is about a disaster or not could 
 
 To better serve as a disaster news feed, the app could be further developed to make more explicit use of geographical data and filtering, allowing for better browsing of regionally important issues.
 
-Currently, user input is required for the application to return results. Future improvements may include adding a feature that allows the application to automatically update display updates without needing the user to input search terms each time.This initial application specifically pulls news articles. A future improvement would allow the application to extract information from other sources, e.g. Twitter, Instagram, YouTube, etc.
+Currently, user input is required for the application to return results. Future improvements may include adding a feature that allows the application to automatically update display without needing the user to input search terms each time.
+This initial application specifically pulls news articles. A future improvement would allow the application to extract information from other sources, e.g. Twitter, Instagram, YouTube, etc.
 
 ## References
 
