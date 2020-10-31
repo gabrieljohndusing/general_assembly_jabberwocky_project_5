@@ -10,7 +10,6 @@
   - [Preprocessing and Modelling](#preprocessing-and-modelling)
 - [Structure and Data Dictionary](#structure-and-data-dictionary)
 - [Conclusions](#conclusions)
-  - [Future Work](#future-work)
 - [References](#references)
 
 ## Introduction
@@ -138,7 +137,7 @@ Our folders have been organized according to the structure below:
     - `static`
 
       - `icons`
-        
+
         - `civic`
 
         - `earthquake`
@@ -189,7 +188,8 @@ Our folders have been organized according to the structure below:
 
 ## Conclusions
 
-### Future Work
+Currently, user input is required for the application to return results.
+In the future, we may add a feature that allows the application to automatically update display updates without needing the user to input search terms each time.
 
 ## References
 
