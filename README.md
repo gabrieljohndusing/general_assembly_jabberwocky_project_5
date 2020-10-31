@@ -41,10 +41,10 @@ This solution was deployed as a Heroku application which can be found here:
   - Scikit-Learn
     - Tfidf-Vectorizer
     - RandomForestClassifier
-  -NLP Tools
+  - NLP Tools
     - Gensim
     - NLTK
-  -Web Deployment
+  - Web Deployment
     - Flask
     - Heroku
 
