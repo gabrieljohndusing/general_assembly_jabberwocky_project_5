@@ -189,7 +189,10 @@ Our folders have been organized according to the structure below:
 ## Conclusions
 
 Currently, user input is required for the application to return results.
-In the future, we may add a feature that allows the application to automatically update display updates without needing the user to input search terms each time.
+Ifuture improvements may include adding a feature that allows the application to automatically update display updates without needing the user to input search terms each time.
+
+This initial application specifically pulls news articles.
+A future improvement would allow the application to extract information from other sources, e.g. Twitter, Instagram, YouTube, etc.
 
 ## References
 
