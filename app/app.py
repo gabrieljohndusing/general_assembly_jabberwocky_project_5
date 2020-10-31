@@ -153,7 +153,7 @@ def search():
             for t in topics:
             	icon_code += icon_dict[t] + "\n"
 
-            return render_template("index.html", display_results=f"<h3>Processed Results</h3> \n {disasters[['title','url','datePublished']].to_html(render_links=True)}",
+            return render_template("index.html", display_results=f"<h3>Results</h3> \n {disasters[['title','url','datePublished']].to_html(render_links=True)}",
             	icons=icon_code)
         else:
             return render_template("index.html", search_results="<p>Please enter a search term.</p>")
